@@ -22,6 +22,19 @@ const addNote = function(title, body) {
   }
 }
 
+const removeNote = (title) => {
+  const notes = loadNotes();
+  const updatedNotes = notes.filter((note) => {
+    return note.title !== title;
+  })
+
+  try {
+    saveNotes(updatedNotes);
+  } catch (error) {
+    console.log('Failed to remove note.');
+  }
+}
+
 const loadNotes = function() {
   try {
     const dataBuffer = fs.readFileSync('notes.json');
@@ -39,5 +52,6 @@ const saveNotes = function(notes) {
 
 module.exports = {
   getNotes: getNotes,
-  addNote: addNote
+  addNote: addNote,
+  removeNote: removeNote
 };
